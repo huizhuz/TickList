@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/ticklist/static/css/main.b100e6da.chunk.css",
+    "main.js": "/ticklist/static/js/main.82691954.chunk.js",
+    "main.js.map": "/ticklist/static/js/main.82691954.chunk.js.map",
+    "runtime-main.js": "/ticklist/static/js/runtime-main.6b64e061.js",
+    "runtime-main.js.map": "/ticklist/static/js/runtime-main.6b64e061.js.map",
+    "static/js/2.fee14fc6.chunk.js": "/ticklist/static/js/2.fee14fc6.chunk.js",
+    "static/js/2.fee14fc6.chunk.js.map": "/ticklist/static/js/2.fee14fc6.chunk.js.map",
+    "index.html": "/ticklist/index.html",
+    "precache-manifest.1d114974abce047b9766263e0ce64dce.js": "/ticklist/precache-manifest.1d114974abce047b9766263e0ce64dce.js",
+    "service-worker.js": "/ticklist/service-worker.js",
+    "static/css/main.b100e6da.chunk.css.map": "/ticklist/static/css/main.b100e6da.chunk.css.map",
+    "static/media/logo.svg": "/ticklist/static/media/logo.25bf045c.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6b64e061.js",
+    "static/js/2.fee14fc6.chunk.js",
+    "static/css/main.b100e6da.chunk.css",
+    "static/js/main.82691954.chunk.js"
+  ]
+}
