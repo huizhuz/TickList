@@ -7,7 +7,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 export default function Header() {
     return (
         <div className={styles.HeaderWrapper}>
-            <img src={icon} />
+            <img src={icon} alt="site-icon"/>
             <p>Ticklist</p>
             <FontAwesomeIcon icon={faBars} />
         </div>

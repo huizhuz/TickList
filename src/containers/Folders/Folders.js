@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Folder from './Folder/Folder';
+import Aux from '../../hoc/Aux'
+import Tasks from '../Tasks/Tasks'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle, faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -14,7 +16,8 @@ export class Folders extends Component {
             { id: 2, name: "grocery", taskQuantity: 0 },
         ],
         newFolderName: "",
-        isEditing: false
+        isEditing: false,
+        currentFolderId: -1
     }
 
     showFolderInput = () => {
@@ -22,12 +25,27 @@ export class Folders extends Component {
     }
 
     newFolderNameUpdate = (e) => {
-        this.setState({newFolderName: e.target.value});
+        this.setState({ newFolderName: e.target.value });
+    }
+
+    submitIfIsEnter = (e) => {
+        let code = (e.keyCode ? e.keyCode : e.which);
+        if (code === 13) {
+            this.addFolder();
+        }
     }
 
     addFolder = () => {
+        if (this.state.newFolderName === "") {
+            return;
+        }
         const foldersToBeUpdated = [...this.state.folders];
-        const newFolderId = foldersToBeUpdated[foldersToBeUpdated.length-1].id + 1;
+        let newFolderId;
+        if (foldersToBeUpdated.length === 0) {
+            newFolderId = 0;
+        } else {
+            newFolderId = foldersToBeUpdated[foldersToBeUpdated.length - 1].id + 1;
+        }
         foldersToBeUpdated.push({
             id: newFolderId,
             name: this.state.newFolderName,
@@ -36,36 +54,56 @@ export class Folders extends Component {
         this.setState({ folders: foldersToBeUpdated, newFolderName: "", isEditing: false });
     }
 
+    deleteFolder = (id) => {
+        const foldersToBeUpdated = [...this.state.folders];
+        const index = foldersToBeUpdated.findIndex(folder => folder.id === id);
+        foldersToBeUpdated.splice(index, 1);
+        this.setState({ folders: foldersToBeUpdated });
+    }
+
+    updateCurrentFolder = (id) => {
+        this.setState({ currentFolderId: id });
+    }
+
     render() {
         // JSX elements
         const folderElements = this.state.folders.map(eachFolder => {
             return (
                 <Folder
+                    updateCurrentFolder={this.updateCurrentFolder}
                     key={eachFolder.id}
-                    folderProps={eachFolder}></Folder>
+                    folder={eachFolder}
+                    deleteFolder={this.deleteFolder}></Folder>
             )
         });
         const plusSign = <FontAwesomeIcon
             onClick={this.showFolderInput}
             className={styles.AddFolderSign}
             icon={faPlusCircle} />;
-        
-        const addFolderInput = 
+
+        const addFolderInput =
             <div className={styles.AddFolderInput}>
-                <input type="text" id="newFolder" onChange={(e) => this.newFolderNameUpdate(e)}></input>
-                <FontAwesomeIcon
+                <input type="text" id="newFolder"
+                    onChange={(e) => this.newFolderNameUpdate(e)}
+                    onKeyPress={(e) => this.submitIfIsEnter(e)}></input>
+                <FontAwesomeIcon className={styles.Icon}
                     onClick={this.addFolder}
                     icon={faPlus} />
             </div>
 
         return (
-            <div className={styles.FoldersContainer}>
-                <h1 className={styles.FolderTitle}>Folders</h1>
-                {folderElements}
-                <div className={styles.FolderControl}>
-                    {this.state.isEditing ? addFolderInput : plusSign}
+            <Aux>
+                <div className={styles.FoldersContainer}>
+                    <h1 className={styles.FolderTitle}>Folders</h1>
+                    {folderElements}
+                    <div className={styles.FolderControl}>
+                        {this.state.isEditing ? addFolderInput : plusSign}
+                    </div>
                 </div>
-            </div>
+                <div className={styles.TasksContainer}>
+                    <Tasks currentFolderId={this.state.currentFolderId}></Tasks>
+                </div>
+            </Aux>
         );
     }
 }

@@ -1,7 +1,15 @@
 .FoldersContainer{
     width: 40%;
     height: 90%;
-    background-color: rgba(255, 232, 232, 0.603);
+    background-color: rgba(255, 232, 232, 0.459);
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+.TasksContainer{
+    width: 50%;
+    height: 90%;
+    background-color: rgba(255, 232, 232, 0.459);
     border-radius: 20px;
     padding: 1rem;
 }
@@ -30,7 +38,7 @@
     margin: 0 auto;
     color: #BF4D4D;
     font-size: 2rem;
-    opacity: 0.5;
+    opacity: 0.7;
     transition: all 0.4s ease;
 }
 
@@ -43,4 +51,31 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: rgba(255, 232, 232, 0.925);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+}
+
+input{
+    height: 1.5rem;
+    width: 85%;
+    border: transparent;
+    
+}
+
+input:focus{
+    outline: none;
+}
+
+.Icon{
+    color: #BF4D4D;
+    opacity: 0.7;
+    transition: all 0.4s ease-out;
+    padding: 0.5rem;
+}
+
+.Icon:hover{
+    cursor: pointer;
+    opacity: 1;
+    transform: rotate(180deg);
 }
