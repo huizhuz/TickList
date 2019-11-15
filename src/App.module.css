@@ -1,0 +1,13 @@
+.App{
+    margin: 0;
+}
+
+.Content{
+    margin: 0 auto;
+    margin-top: 3rem;
+    width: 85vw;
+    height: 80vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}

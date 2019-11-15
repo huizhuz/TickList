@@ -1,0 +1,14 @@
+.HeaderWrapper{
+    font-family: 'Julius Sans One', sans-serif;
+    height: 3rem;
+    font-size: 2rem;
+    background-color: #F4ECE6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+img{
+    height: 3rem;
+}
