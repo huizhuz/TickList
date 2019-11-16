@@ -40,7 +40,7 @@ export class Tasks extends Component {
                 ]
             }
         ],
-        showFinished: false
+        showFinishedTasks: false
     }
 
     onFinishClick = (taskId, folderIndex) => {
@@ -51,42 +51,50 @@ export class Tasks extends Component {
     }
 
     toggleFinished = () => {
-        this.setState({showFinished: !this.state.showFinished});
+        this.setState({ showFinishedTasks: !this.state.showFinishedTasks });
     }
 
     render() {
+        // find the index of current folder's tasks in the allTasks array
         const currentFolderIndex = this.state.allTasks.findIndex(folder => folder.folderId === this.props.currentFolderId);
+
+        // initialize JSX elements
         var tasksElements = null;
         var initialTask = null;
         var finishedTasksElements = null;
+        var showFinishedButton = false;
+        // array of tasks in current folder
         if (currentFolderIndex !== -1) {
-            const tasks = this.state.allTasks[currentFolderIndex].tasks; // array of tasks in current folder
+            const tasks = this.state.allTasks[currentFolderIndex].tasks;
             tasksElements = tasks.map(task => {
                 if (task.isFinished === false) {
                     return (<Task key={task.taskId} task={task} currentFolderIndex={currentFolderIndex}
                         finish={this.onFinishClick}></Task>)
                 } else return null;
             })
-        } else {
-            initialTask = <div>Choose a folder to start</div>
-        }
-        if (currentFolderIndex !== -1) {
-            const tasks = this.state.allTasks[currentFolderIndex].tasks;
+            // array of finished tasks in current folder
             finishedTasksElements = tasks.map(task => {
                 if (task.isFinished === true) {
                     return (<Task key={task.taskId} task={task} currentFolderIndex={currentFolderIndex}
                         finish={this.onFinishClick} bgColor="white"></Task>)
                 } else return null;
             })
+            // value to toggle the finished list button
+            showFinishedButton = tasks.reduce((finishedExist, task) => {
+                return finishedExist || task.isFinished;
+            }, false);
+        } else {
+            initialTask = <div>Choose a folder to start</div>
         }
+
 
         return (
             <div>
                 <h1 className={styles.TasksTitle}>Tasks</h1>
                 {currentFolderIndex !== -1 ? tasksElements : initialTask}
                 <div className={styles.FinishedTasks}>
-                    <h3 onClick={this.toggleFinished}>Finished list</h3>
-                    {currentFolderIndex !== -1 && this.state.showFinished? finishedTasksElements : null}
+                    {showFinishedButton? <h3 onClick={this.toggleFinished}>Finished list</h3> : null}
+                    {currentFolderIndex !== -1 && this.state.showFinishedTasks ? finishedTasksElements : null}
                 </div>
             </div>
         );
