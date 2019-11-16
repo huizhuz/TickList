@@ -1,0 +1,32 @@
+.TasksTitle{
+    font-family: 'Julius Sans One', sans-serif;
+    font-size: 1.5rem;
+    color: #BF4D4D;
+    transition: all 0.4s ease;
+}
+
+.TasksTitle:hover{
+    letter-spacing: 1px;
+    cursor: default;
+}
+
+.FinishedTasks h3{
+    font-family: 'Julius Sans One', sans-serif;
+    margin: 0 auto;
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    background-color: rgb(255, 255, 255);
+    width:10rem;
+    border: #eee 1px solid;
+    border-radius: 10px;
+    transition: all 0.4s ease;
+}
+
+.FinishedTasks h3:hover{
+    cursor: pointer;
+    box-shadow: #ccc 3px 4px 3px;
+    transform: translateY(-1px);
+}

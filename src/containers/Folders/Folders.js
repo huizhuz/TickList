@@ -17,7 +17,8 @@ export class Folders extends Component {
         ],
         newFolderName: "",
         isEditing: false,
-        currentFolderId: -1
+        currentFolderId: -1,
+        editingFolderName: false,
     }
 
     showFolderInput = () => {
@@ -54,6 +55,10 @@ export class Folders extends Component {
         this.setState({ folders: foldersToBeUpdated, newFolderName: "", isEditing: false });
     }
 
+    editFolder = (id) => {
+        this.setState({editingFolderName: true})
+    }
+
     deleteFolder = (id) => {
         const foldersToBeUpdated = [...this.state.folders];
         const index = foldersToBeUpdated.findIndex(folder => folder.id === id);
@@ -65,6 +70,7 @@ export class Folders extends Component {
         this.setState({ currentFolderId: id });
     }
 
+
     render() {
         // JSX elements
         const folderElements = this.state.folders.map(eachFolder => {
@@ -73,6 +79,8 @@ export class Folders extends Component {
                     updateCurrentFolder={this.updateCurrentFolder}
                     key={eachFolder.id}
                     folder={eachFolder}
+                    editingFolderName={this.state.editingFolderName}
+                    editFolder={this.editFolder}
                     deleteFolder={this.deleteFolder}></Folder>
             )
         });
