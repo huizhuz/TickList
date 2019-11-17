@@ -9,6 +9,11 @@ import { faPlusCircle, faPlus } from '@fortawesome/free-solid-svg-icons'
 import styles from './Folders.module.css';
 
 export class Folders extends Component {
+
+    constructor(props) {
+        super(props);
+        this.tasksElement = React.createRef();
+    }
     state = {
         folders: [
             { id: 0, name: "school", taskQuantity: 0 },
@@ -64,6 +69,7 @@ export class Folders extends Component {
         const foldersToBeUpdated = [...this.state.folders];
         const index = foldersToBeUpdated.findIndex(folder => folder.id === id);
         foldersToBeUpdated.splice(index, 1);
+        this.tasksElement.current.deleteFolder(id);
         this.setState({ folders: foldersToBeUpdated });
     }
 
@@ -110,7 +116,7 @@ export class Folders extends Component {
                     </div>
                 </div>
                 <div className={styles.TasksContainer}>
-                    <Tasks currentFolderId={this.state.currentFolderId}></Tasks>
+                    <Tasks ref={this.tasksElement} currentFolderId={this.state.currentFolderId}></Tasks>
                 </div>
             </Aux>
         );

@@ -57,8 +57,9 @@ export class Tasks extends Component {
         this.setState({ allTasks: allTasksToBeUpdated });
     }
 
-    deleteFolder = (folderIndex) => {
+    deleteFolder = (folderId) => {
         const allTasksToBeUpdated = [...this.state.allTasks];
+        const folderIndex = this.state.allTasks.findIndex(folder => folder.folderId === folderId);
         allTasksToBeUpdated.splice(folderIndex,1);
         this.setState({ allTasks: allTasksToBeUpdated });
     }
