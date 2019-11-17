@@ -50,6 +50,19 @@ export class Tasks extends Component {
         this.setState({ allTasks: allTasksToBeUpdated });
     }
 
+    deleteTask = (taskId, folderIndex) => {
+        const allTasksToBeUpdated = [...this.state.allTasks];
+        let taskToBeDeletedIndex = allTasksToBeUpdated[folderIndex].tasks.findIndex(task => task.taskId === taskId);
+        allTasksToBeUpdated[folderIndex].tasks.splice(taskToBeDeletedIndex,1);
+        this.setState({ allTasks: allTasksToBeUpdated });
+    }
+
+    deleteFolder = (folderIndex) => {
+        const allTasksToBeUpdated = [...this.state.allTasks];
+        allTasksToBeUpdated.splice(folderIndex,1);
+        this.setState({ allTasks: allTasksToBeUpdated });
+    }
+
     toggleFinished = () => {
         this.setState({ showFinishedTasks: !this.state.showFinishedTasks });
     }
@@ -69,14 +82,14 @@ export class Tasks extends Component {
             tasksElements = tasks.map(task => {
                 if (task.isFinished === false) {
                     return (<Task key={task.taskId} task={task} currentFolderIndex={currentFolderIndex}
-                        finish={this.onFinishClick}></Task>)
+                        finish={this.onFinishClick} deleteTask={this.deleteTask}></Task>)
                 } else return null;
             })
             // array of finished tasks in current folder
             finishedTasksElements = tasks.map(task => {
                 if (task.isFinished === true) {
                     return (<Task key={task.taskId} task={task} currentFolderIndex={currentFolderIndex}
-                        finish={this.onFinishClick} bgColor="white"></Task>)
+                        finish={this.onFinishClick} deleteTask={this.deleteTask} bgColor="white"></Task>)
                 } else return null;
             })
             // value to toggle the finished list button

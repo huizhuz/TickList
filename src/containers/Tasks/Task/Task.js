@@ -18,8 +18,8 @@ export default function Task(props) {
                 icon={faPencilAlt} />
             </div> 
             <FontAwesomeIcon
-                className={styles.Icon}
-                // onClick={() => props.deleteFolder(props.folder.id)}
+                className={[styles.Icon, styles.Shake].join(" ")}
+                onClick={() => props.deleteTask(props.task.taskId, props.currentFolderIndex)}
                 icon={faTrashAlt} />
         </div>
     )

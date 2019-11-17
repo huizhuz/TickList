@@ -38,6 +38,7 @@ export class Folders extends Component {
 
     addFolder = () => {
         if (this.state.newFolderName === "") {
+            this.setState({isEditing: false});
             return;
         }
         const foldersToBeUpdated = [...this.state.folders];
