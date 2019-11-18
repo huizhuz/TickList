@@ -74,14 +74,23 @@ export class Tasks extends Component {
     deleteTask = (taskId, folderIndex) => {
         const allTasksToBeUpdated = [...this.state.allTasks];
         let taskToBeDeletedIndex = allTasksToBeUpdated[folderIndex].tasks.findIndex(task => task.taskId === taskId);
-        allTasksToBeUpdated[folderIndex].tasks.splice(taskToBeDeletedIndex,1);
+        allTasksToBeUpdated[folderIndex].tasks.splice(taskToBeDeletedIndex, 1);
+        this.setState({ allTasks: allTasksToBeUpdated });
+    }
+
+    addFolder = (newFolderId) => {
+        const allTasksToBeUpdated = [...this.state.allTasks];
+        allTasksToBeUpdated.push({
+            folderId: newFolderId,
+            tasks: []
+        })
         this.setState({ allTasks: allTasksToBeUpdated });
     }
 
     deleteFolder = (folderId) => {
         const allTasksToBeUpdated = [...this.state.allTasks];
         const folderIndex = this.state.allTasks.findIndex(folder => folder.folderId === folderId);
-        allTasksToBeUpdated.splice(folderIndex,1);
+        allTasksToBeUpdated.splice(folderIndex, 1);
         this.setState({ allTasks: allTasksToBeUpdated });
     }
 
@@ -124,7 +133,7 @@ export class Tasks extends Component {
                 <h1 className={styles.TasksTitle}>Tasks</h1>
                 {currentFolderIndex !== -1 ? tasksElements : initialTask}
                 <div className={styles.FinishedTasks}>
-                    {showFinishedButton? <h3 onClick={this.toggleFinished}>Finished list</h3> : null}
+                    {showFinishedButton ? <h3 onClick={this.toggleFinished}>Finished list</h3> : null}
                     {currentFolderIndex !== -1 && this.state.showFinishedTasks ? finishedTasksElements : null}
                 </div>
             </div>

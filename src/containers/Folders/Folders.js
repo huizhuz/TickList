@@ -58,6 +58,7 @@ export class Folders extends Component {
             name: this.state.newFolderName,
             taskQuantity: 0
         });
+        this.tasksElement.current.addFolder(newFolderId);
         this.setState({ folders: foldersToBeUpdated, newFolderName: "", isEditing: false });
     }
 

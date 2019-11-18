@@ -7,7 +7,7 @@
     align-items: center;
     background: rgba(255, 232, 232, 0.925);
     border-radius: 20px;
-    padding: 0.5rem 1rem;
+    padding: 0 0.5rem 0 0;
     transition: all 0.4s ease;
 }
 
@@ -17,6 +17,13 @@
 
 .Folder p{
     margin: 0;
+    padding: 0.5rem 1rem;
+    transition: all 0.4s ease;
+}
+
+.Folder p:hover{
+    cursor: default;
+    letter-spacing: 1px;
 }
 
 .Folder:hover{
