@@ -84,6 +84,7 @@ export class Folders extends Component {
         const folderElements = this.state.folders.map(eachFolder => {
             return (
                 <Folder
+                    chosenFolderId={this.state.currentFolderId}
                     updateCurrentFolder={this.updateCurrentFolder}
                     key={eachFolder.id}
                     folder={eachFolder}
