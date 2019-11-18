@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faPencilAlt, faCheck } from '@fortawesome/free-solid-svg-icons';
 import styles from './Folder.module.css'
 import { is } from '@babel/types';
 
@@ -32,11 +32,12 @@ export default function Folder(props) {
     const folderEdit = (
         <div className={styles.Folder}>
             <input type="text" value={props.folder.name}
-                onChange={(e) => props.updateFolderName(e, props.folder.id)}
-                onKeyPress={(e) => props.updateIfIsEnter(e, props.folder.id)}></input>
-            <FontAwesomeIcon className={styles.PlusSign}
-                // onClick={this.addFolder}
-                icon={faPlus} />
+                onChange={(e) => props.editFolderName(e, props.folder.id)}
+                onKeyPress={(e) => props.changeBeingEdittedFolderId(props.folder.id)}
+                ></input>
+            <FontAwesomeIcon className={styles.Icon}
+                onClick={()=>{props.changeBeingEdittedFolderId(props.folder.id)}}
+                icon={faCheck} />
         </div>
     );
     return isEditting ? folderEdit : folderDisplay;

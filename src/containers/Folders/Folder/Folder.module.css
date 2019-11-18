@@ -51,19 +51,6 @@
     opacity: 1;
 }
 
-.PlusSign{
-    color: #BF4D4D;
-    opacity: 0.7;
-    transition: all 0.4s ease-out;
-    padding: 0.5rem;
-}
-
-.PlusSign:hover{
-    cursor: pointer;
-    opacity: 1;
-    transform: rotate(180deg);
-}
-
 .Lift{
     position: relative;
 }
