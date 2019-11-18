@@ -23,7 +23,7 @@ export class Folders extends Component {
         newFolderName: "",
         isEditing: false,
         currentFolderId: -1,
-        editingFolderName: false,
+        idOfFolderBeingEditted: -1,
     }
 
     showFolderInput = () => {
@@ -62,9 +62,15 @@ export class Folders extends Component {
         this.setState({ folders: foldersToBeUpdated, newFolderName: "", isEditing: false });
     }
 
-    editFolder = (id) => {
-        this.setState({editingFolderName: true})
+    changeBeingEdittedFolderId = (folderId) => {
+        this.setState({idOfFolderBeingEditted:folderId})
+
     }
+    // editFolder = (id) => {
+    //     const foldersToBeUpdated = [...this.state.folders];
+    //     const index = foldersToBeUpdated.findIndex(folder => folder.id === id);
+    //     foldersToBeUpdated[index]
+    // }
 
     deleteFolder = (id) => {
         const foldersToBeUpdated = [...this.state.folders];
@@ -84,11 +90,12 @@ export class Folders extends Component {
         const folderElements = this.state.folders.map(eachFolder => {
             return (
                 <Folder
+                    changeBeingEdittedFolderId={this.changeBeingEdittedFolderId}
+                    idOfFolderBeingEditted={this.state.idOfFolderBeingEditted}
                     chosenFolderId={this.state.currentFolderId}
                     updateCurrentFolder={this.updateCurrentFolder}
                     key={eachFolder.id}
                     folder={eachFolder}
-                    editingFolderName={this.state.editingFolderName}
                     editFolder={this.editFolder}
                     deleteFolder={this.deleteFolder}></Folder>
             )
