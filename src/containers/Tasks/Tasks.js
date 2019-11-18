@@ -38,9 +38,30 @@ export class Tasks extends Component {
                         priority: 0
                     },
                 ]
+            },
+            {
+                folderId: 2,
+                tasks: [
+                    {
+                        taskId: 0,
+                        name: "hahaha",
+                        isFinished: false,
+                        priority: 0
+                    },
+                    {
+                        taskId: 1,
+                        name: "hohoho",
+                        isFinished: false,
+                        priority: 0
+                    },
+                ]
             }
         ],
         showFinishedTasks: false
+    }
+    // return true/false: whether to show finished list or not
+    toggleFinished = () => {
+        this.setState({ showFinishedTasks: !this.state.showFinishedTasks });
     }
 
     onFinishClick = (taskId, folderIndex) => {
@@ -62,10 +83,6 @@ export class Tasks extends Component {
         const folderIndex = this.state.allTasks.findIndex(folder => folder.folderId === folderId);
         allTasksToBeUpdated.splice(folderIndex,1);
         this.setState({ allTasks: allTasksToBeUpdated });
-    }
-
-    toggleFinished = () => {
-        this.setState({ showFinishedTasks: !this.state.showFinishedTasks });
     }
 
     render() {
