@@ -33,7 +33,7 @@ export default function Folder(props) {
         <div className={styles.Folder}>
             <input type="text" value={props.folder.name}
                 onChange={(e) => props.editFolderName(e, props.folder.id)}
-                onKeyPress={(e) => props.changeBeingEdittedFolderId(props.folder.id)}
+                onKeyPress={(e) => props.confirmChange(e, props.folder.id)}
                 ></input>
             <FontAwesomeIcon className={styles.Icon}
                 onClick={()=>{props.changeBeingEdittedFolderId(props.folder.id)}}

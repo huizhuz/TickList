@@ -62,6 +62,21 @@ export class Folders extends Component {
         this.setState({ folders: foldersToBeUpdated, newFolderName: "", isEditing: false });
     }
 
+    editFolderName = (e, id) => {
+        const foldersToBeUpdated = [...this.state.folders];
+        const index = foldersToBeUpdated.findIndex(folder => folder.id === id);
+        var newFolderName = e.target.value;
+        foldersToBeUpdated[index].name = newFolderName;
+        this.setState({ folders: foldersToBeUpdated });
+    }
+
+    confirmChange = (e, folderId) => {
+        let code = (e.keyCode ? e.keyCode : e.which);
+        if (code === 13) {
+            this.changeBeingEdittedFolderId(folderId)
+        }
+    }
+
     changeBeingEdittedFolderId = (folderId) => {
         if (folderId === this.state.idOfFolderBeingEditted) {
             this.setState({ idOfFolderBeingEditted: -1 })
@@ -84,15 +99,6 @@ export class Folders extends Component {
         this.setState({ currentFolderId: id });
     }
 
-    editFolderName = (e, id) => {
-        const foldersToBeUpdated = [...this.state.folders];
-        const index = foldersToBeUpdated.findIndex(folder => folder.id === id);
-        var newFolderName = e.target.value;
-        foldersToBeUpdated[index].name = newFolderName;
-        this.setState({ folders: foldersToBeUpdated });
-        console.log(this.state.folders)
-    }
-
 
     render() {
         // JSX elements
@@ -107,6 +113,7 @@ export class Folders extends Component {
                     folder={eachFolder}
                     editFolder={this.editFolder}
                     deleteFolder={this.deleteFolder}
+                    confirmChange={this.confirmChange}
                     editFolderName={this.editFolderName}></Folder>
             )
         });
