@@ -2,16 +2,15 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPencilAlt, faCheck } from '@fortawesome/free-solid-svg-icons';
 import styles from './Folder.module.css'
-import { is } from '@babel/types';
 
 export default function Folder(props) {
     var activeClass;
     if (props.chosenFolderId === props.folder.id) {
         activeClass = styles.Chosen;
     }
-    var isEditting = false;
+    var isEditing = false;
     if (props.idOfFolderBeingEditted === props.folder.id){
-        isEditting = true;
+        isEditing = true;
     }
 
     const folderDisplay = (
@@ -40,5 +39,5 @@ export default function Folder(props) {
                 icon={faCheck} />
         </div>
     );
-    return isEditting ? folderEdit : folderDisplay;
+    return isEditing ? folderEdit : folderDisplay;
 }

@@ -14,13 +14,17 @@
 }
 
 .TaskEntry{
-    min-width: 90%;
+    height: 2rem;
+    min-width: 85%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 .TaskEntry input{
     width: 1rem;
+}
+.EditField {
+    min-width: 80%
 }
 
 .Icon{

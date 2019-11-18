@@ -94,6 +94,13 @@ export class Tasks extends Component {
         this.setState({ allTasks: allTasksToBeUpdated });
     }
 
+    editTaskName = (e, folderIndex, taskId) => {
+        const allTasksToBeUpdated = [...this.state.allTasks];
+        const taskIndex = allTasksToBeUpdated[folderIndex].tasks.findIndex(task => task.taskId === taskId);
+        allTasksToBeUpdated[folderIndex].tasks[taskIndex].name = e.target.value;
+        this.setState({ allTasks: allTasksToBeUpdated });
+    }
+
     render() {
         // find the index of current folder's tasks in the allTasks array
         const currentFolderIndex = this.state.allTasks.findIndex(folder => folder.folderId === this.props.currentFolderId);
@@ -108,8 +115,10 @@ export class Tasks extends Component {
             const tasks = this.state.allTasks[currentFolderIndex].tasks;
             tasksElements = tasks.map(task => {
                 if (task.isFinished === false) {
-                    return (<Task key={task.taskId} task={task} currentFolderIndex={currentFolderIndex}
-                        finish={this.onFinishClick} deleteTask={this.deleteTask}></Task>)
+                    return (<Task key={task.taskId} task={task} 
+                        currentFolderIndex={currentFolderIndex}
+                        finish={this.onFinishClick} deleteTask={this.deleteTask}
+                        editTaskName={this.editTaskName}></Task>)
                 } else return null;
             })
             // array of finished tasks in current folder
