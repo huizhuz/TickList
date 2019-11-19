@@ -196,7 +196,7 @@ export class Tasks extends Component {
         return (
             <div>
                 <h1 className={styles.TasksTitle}>Tasks</h1>
-                {currentFolderIndex !== -1 ? [addNewTask, ...tasksElements] : initialTask}
+                {currentFolderIndex !== -1 ? [addNewTask, tasksElements] : initialTask}
                 <div className={styles.FinishedTasks}>
                     {showFinishedButton ? <h3 onClick={this.toggleFinished}>Finished list</h3> : null}
                     {currentFolderIndex !== -1 && this.state.showFinishedTasks ? finishedTasksElements : null}
