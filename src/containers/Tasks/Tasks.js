@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Task from './Task/Task';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Tasks.module.css';
 export class Tasks extends Component {
@@ -106,7 +106,7 @@ export class Tasks extends Component {
             let finishedTaskIndex = allTasksToBeUpdated[folderIndex].tasks.findIndex(task => task.taskId === taskId);
             allTasksToBeUpdated[folderIndex].tasks[finishedTaskIndex].isFinished = !allTasksToBeUpdated[folderIndex].tasks[finishedTaskIndex].isFinished;
             this.setState({ allTasks: allTasksToBeUpdated });
-        }, 500);
+        }, 400);
     }
 
     deleteTask = (taskId, folderIndex) => {
@@ -139,12 +139,21 @@ export class Tasks extends Component {
         this.setState({ allTasks: allTasksToBeUpdated });
     }
 
+    setPriority = (taskId, folderIndex) => {
+        const allTasksToBeUpdated = [...this.state.allTasks];
+        const taskIndex = allTasksToBeUpdated[folderIndex].tasks.findIndex(task => task.taskId === taskId);
+        allTasksToBeUpdated[folderIndex].tasks[taskIndex].priority = 1 - allTasksToBeUpdated[folderIndex].tasks[taskIndex].priority;
+        this.setState({ allTasks: allTasksToBeUpdated });
+    }
+
     render() {
         // find the index of current folder's tasks in the allTasks array
         const currentFolderIndex = this.state.allTasks.findIndex(folder => folder.folderId === this.props.currentFolderId);
 
         // initialize JSX elements
         var tasksElements = null;
+        var highPriorityElements = null;
+        var lowPriorityElements = null;
         var initialTask = null;
         var finishedTasksElements = null;
         var showFinishedButton = false;
@@ -164,14 +173,29 @@ export class Tasks extends Component {
                 </div>
             )
             if (tasks.length !== 0) {
-                tasksElements = tasks.map(task => {
-                    if (task.isFinished === false) {
+
+                highPriorityElements = tasks.map(task => {
+                    if(task.isFinished === false && task.priority === 1) {
                         return (<Task key={task.taskId} task={task}
                             currentFolderIndex={currentFolderIndex}
                             finish={this.onFinishClick} deleteTask={this.deleteTask}
-                            editTaskName={this.editTaskName}></Task>)
+                            editTaskName={this.editTaskName}
+                            setPriority={this.setPriority}
+                            ></Task>)
                     } else return null;
-                })
+                });
+
+                lowPriorityElements = tasks.map(task => {
+                    if(task.isFinished === false && task.priority === 0) {
+                        return (<Task key={task.taskId} task={task}
+                            currentFolderIndex={currentFolderIndex}
+                            finish={this.onFinishClick} deleteTask={this.deleteTask}
+                            editTaskName={this.editTaskName}
+                            setPriority={this.setPriority}
+                            ></Task>)
+                    } else return null;
+                });
+                tasksElements = [highPriorityElements, lowPriorityElements];
                 // array of finished tasks in current folder
                 finishedTasksElements = tasks.map(task => {
                     if (task.isFinished === true) {
@@ -185,7 +209,11 @@ export class Tasks extends Component {
                 }, false);
             } else {
                 tasksElements = (
-                    <div>Start adding your tasks!</div>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>Start adding your tasks!</div>
                 )
             }
         } else {

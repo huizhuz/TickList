@@ -16,7 +16,7 @@
 
 .TaskEntry{
     height: 2rem;
-    min-width: 85%;
+    min-width: 80%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
