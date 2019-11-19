@@ -5,27 +5,33 @@ import styles from './Task.module.css'
 
 export default function Task(props) {
 
-    const [isEditing, setEditing] = useState(false)
+    const [isEditing, setEditing] = useState(false);
+    const [fadeout, setFadeout] = useState(false);
+
+    var fadeoutStyle = fadeout ? styles.FadeOut : null;
 
     const taskDisplay = (
-        <div className={styles.TaskContainer} style={{ backgroundColor: props.bgColor }}>
-            <div className={styles.TaskEntry}>
-                <input type="checkbox" checked={props.task.isFinished}
-                    id={props.currentFolderIndex + '_' + props.task.taskId}
-                    onChange={() => props.finish(props.task.taskId, props.currentFolderIndex)}></input>
-                <label htmlFor={props.currentFolderIndex + '_' + props.task.taskId}>{props.task.name}</label>
-            </div>
-            {props.task.isFinished ? null :
-                <div className={[styles.Icon, styles.Lift].join(" ")}>
-                    <FontAwesomeIcon
-                        onClick={() => { setEditing(!isEditing) }}
-                        icon={faPencilAlt} />
+            <div className={[styles.TaskContainer, fadeoutStyle].join(" ")} style={{ backgroundColor: props.bgColor }}>
+                <div className={styles.TaskEntry}>
+                    <input type="checkbox" checked={props.task.isFinished}
+                        id={props.currentFolderIndex + '_' + props.task.taskId}
+                        onChange={() => {
+                            setFadeout(!fadeout);
+                            props.finish(props.task.taskId, props.currentFolderIndex)
+                        }}></input>
+                    <label htmlFor={props.currentFolderIndex + '_' + props.task.taskId}>{props.task.name}</label>
                 </div>
-            }
-            <FontAwesomeIcon
-                className={[styles.Icon, styles.Shake].join(" ")}
-                onClick={() => props.deleteTask(props.task.taskId, props.currentFolderIndex)}
-                icon={faTrashAlt} />
+                {props.task.isFinished ? null :
+                    <div className={[styles.Icon, styles.Lift].join(" ")}>
+                        <FontAwesomeIcon
+                            onClick={() => { setEditing(!isEditing) }}
+                            icon={faPencilAlt} />
+                    </div>
+                }
+                <FontAwesomeIcon
+                    className={[styles.Icon, styles.Shake].join(" ")}
+                    onClick={() => props.deleteTask(props.task.taskId, props.currentFolderIndex)}
+                    icon={faTrashAlt} />
         </div>
     )
     const taskEdit = (

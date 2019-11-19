@@ -65,10 +65,12 @@ export class Tasks extends Component {
     }
 
     onFinishClick = (taskId, folderIndex) => {
-        const allTasksToBeUpdated = [...this.state.allTasks];
-        let finishedTaskIndex = allTasksToBeUpdated[folderIndex].tasks.findIndex(task => task.taskId === taskId);
-        allTasksToBeUpdated[folderIndex].tasks[finishedTaskIndex].isFinished = !allTasksToBeUpdated[folderIndex].tasks[finishedTaskIndex].isFinished;
-        this.setState({ allTasks: allTasksToBeUpdated });
+        setTimeout(() => {
+            const allTasksToBeUpdated = [...this.state.allTasks];
+            let finishedTaskIndex = allTasksToBeUpdated[folderIndex].tasks.findIndex(task => task.taskId === taskId);
+            allTasksToBeUpdated[folderIndex].tasks[finishedTaskIndex].isFinished = !allTasksToBeUpdated[folderIndex].tasks[finishedTaskIndex].isFinished;
+            this.setState({ allTasks: allTasksToBeUpdated });
+        }, 500);
     }
 
     deleteTask = (taskId, folderIndex) => {
@@ -115,7 +117,7 @@ export class Tasks extends Component {
             const tasks = this.state.allTasks[currentFolderIndex].tasks;
             tasksElements = tasks.map(task => {
                 if (task.isFinished === false) {
-                    return (<Task key={task.taskId} task={task} 
+                    return (<Task key={task.taskId} task={task}
                         currentFolderIndex={currentFolderIndex}
                         finish={this.onFinishClick} deleteTask={this.deleteTask}
                         editTaskName={this.editTaskName}></Task>)
