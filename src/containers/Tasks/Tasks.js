@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Task from './Task/Task';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
 import styles from './Tasks.module.css';
 export class Tasks extends Component {
     state = {
@@ -57,7 +60,40 @@ export class Tasks extends Component {
                 ]
             }
         ],
+        newTaskName: "",
         showFinishedTasks: false
+    }
+
+    newTaskNameUpdate = (e) => {
+        this.setState({ newTaskName: e.target.value })
+    }
+
+    onAddNewTask = (folderIndex) => {
+        if (this.state.newTaskName === "") {
+            return;
+        };
+        const allTasksToBeUpdated = [...this.state.allTasks];
+        let newTaskId;
+        const currentTasks = allTasksToBeUpdated[folderIndex].tasks;
+        if (currentTasks.length === 0) {
+            newTaskId = 0;
+        } else {
+            newTaskId = currentTasks[currentTasks.length - 1].taskId + 1;
+        }
+        allTasksToBeUpdated[folderIndex].tasks.push({
+            taskId: newTaskId,
+            name: this.state.newTaskName,
+            isFinished: false,
+            priority: 0
+        });
+        this.setState({ allTasks: allTasksToBeUpdated, newTaskName: "" });
+    }
+
+    submitIfIsEnter = (e, folderIndex) => {
+        let code = (e.keyCode ? e.keyCode : e.which);
+        if (code === 13) {
+            this.onAddNewTask(folderIndex);
+        }
     }
     // return true/false: whether to show finished list or not
     toggleFinished = () => {
@@ -112,28 +148,46 @@ export class Tasks extends Component {
         var initialTask = null;
         var finishedTasksElements = null;
         var showFinishedButton = false;
+        var addNewTask = null;
         // array of tasks in current folder
         if (currentFolderIndex !== -1) {
             const tasks = this.state.allTasks[currentFolderIndex].tasks;
-            tasksElements = tasks.map(task => {
-                if (task.isFinished === false) {
-                    return (<Task key={task.taskId} task={task}
-                        currentFolderIndex={currentFolderIndex}
-                        finish={this.onFinishClick} deleteTask={this.deleteTask}
-                        editTaskName={this.editTaskName}></Task>)
-                } else return null;
-            })
-            // array of finished tasks in current folder
-            finishedTasksElements = tasks.map(task => {
-                if (task.isFinished === true) {
-                    return (<Task key={task.taskId} task={task} currentFolderIndex={currentFolderIndex}
-                        finish={this.onFinishClick} deleteTask={this.deleteTask} bgColor="white"></Task>)
-                } else return null;
-            })
-            // value to toggle the finished list button
-            showFinishedButton = tasks.reduce((finishedExist, task) => {
-                return finishedExist || task.isFinished;
-            }, false);
+            addNewTask = (
+                <div className={styles.AddTask} key="add">
+                    <input type="text" value={this.state.newTaskName}
+                        onChange={(e) => this.newTaskNameUpdate(e)}
+                        onKeyPress={(e) => this.submitIfIsEnter(e, currentFolderIndex)}
+                    ></input>
+                    <FontAwesomeIcon className={styles.Icon}
+                        onClick={() => this.onAddNewTask(currentFolderIndex)}
+                        icon={faPlus} />
+                </div>
+            )
+            if (tasks.length !== 0) {
+                tasksElements = tasks.map(task => {
+                    if (task.isFinished === false) {
+                        return (<Task key={task.taskId} task={task}
+                            currentFolderIndex={currentFolderIndex}
+                            finish={this.onFinishClick} deleteTask={this.deleteTask}
+                            editTaskName={this.editTaskName}></Task>)
+                    } else return null;
+                })
+                // array of finished tasks in current folder
+                finishedTasksElements = tasks.map(task => {
+                    if (task.isFinished === true) {
+                        return (<Task key={task.taskId} task={task} currentFolderIndex={currentFolderIndex}
+                            finish={this.onFinishClick} deleteTask={this.deleteTask} bgColor="white"></Task>)
+                    } else return null;
+                })
+                // value to toggle the finished list button
+                showFinishedButton = tasks.reduce((finishedExist, task) => {
+                    return finishedExist || task.isFinished;
+                }, false);
+            } else {
+                tasksElements = (
+                    <div>Start adding your tasks!</div>
+                )
+            }
         } else {
             initialTask = <div>Choose a folder to start</div>
         }
@@ -142,7 +196,7 @@ export class Tasks extends Component {
         return (
             <div>
                 <h1 className={styles.TasksTitle}>Tasks</h1>
-                {currentFolderIndex !== -1 ? tasksElements : initialTask}
+                {currentFolderIndex !== -1 ? [addNewTask, ...tasksElements] : initialTask}
                 <div className={styles.FinishedTasks}>
                     {showFinishedButton ? <h3 onClick={this.toggleFinished}>Finished list</h3> : null}
                     {currentFolderIndex !== -1 && this.state.showFinishedTasks ? finishedTasksElements : null}
