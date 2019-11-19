@@ -23,7 +23,7 @@ export default function Task(props) {
                     }}></input>
                 <label htmlFor={props.currentFolderIndex + '_' + props.task.taskId}>{props.task.name}</label>
             </div>
-            {
+            {props.task.isFinished ? null :
                 props.task.priority === 1 ?
                     <FontAwesomeIcon
                         className={styles.Icon}
