@@ -13,13 +13,13 @@ export class Tasks extends Component {
                 tasks: [
                     {
                         taskId: 0,
-                        name: "add my todo",
+                        name: "Meet Prof Shau",
                         isFinished: false,
                         priority: 0
                     },
                     {
                         taskId: 1,
-                        name: "delete my todo",
+                        name: "Homework Due",
                         isFinished: false,
                         priority: 0
                     },
@@ -30,13 +30,13 @@ export class Tasks extends Component {
                 tasks: [
                     {
                         taskId: 0,
-                        name: "addddd",
+                        name: "Create PR",
                         isFinished: false,
                         priority: 0
                     },
                     {
                         taskId: 1,
-                        name: "deleteeeee",
+                        name: "Presentation prep",
                         isFinished: false,
                         priority: 0
                     },
@@ -47,13 +47,13 @@ export class Tasks extends Component {
                 tasks: [
                     {
                         taskId: 0,
-                        name: "hahaha",
+                        name: "Bananas",
                         isFinished: false,
                         priority: 0
                     },
                     {
                         taskId: 1,
-                        name: "hohoho",
+                        name: "Fish",
                         isFinished: false,
                         priority: 0
                     },

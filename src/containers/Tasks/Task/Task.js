@@ -50,7 +50,7 @@ export default function Task(props) {
     const taskEdit = (
         <div className={styles.TaskContainer}>
             <div className={styles.TaskEntry}>
-                <input type="checkbox" checked={props.task.isFinished} disabled="true"></input>
+                <input type="checkbox" checked={props.task.isFinished} disabled={true}></input>
                 <input className={styles.EditField} type="text" value={props.task.name}
                     onChange={(e) => props.editTaskName(e, props.currentFolderIndex, props.task.taskId)}
                     onKeyPress={(e) => {

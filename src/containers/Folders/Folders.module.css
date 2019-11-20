@@ -66,10 +66,6 @@ input{
     font-size: 1rem;
     padding: 0 0.5rem;
 }
-/* 
-input:focus{
-    outline: none;
-} */
 
 .Icon{
     color: #BF4D4D;
@@ -82,4 +78,29 @@ input:focus{
     cursor: pointer;
     opacity: 1;
     transform: rotate(180deg);
+}
+
+
+@media(max-width: 868px) {
+    .FoldersContainer{
+        width: 90%;
+        height: auto;
+        margin-bottom: 2rem;
+    }
+    .FolderTitle:hover{
+        cursor: pointer;
+    }
+    .TasksContainer{
+        width: 90%;
+    }
+    .HideFolder{
+        display: none;
+        height: 0;
+    }
+    .ShowFolder{
+        height: auto;
+    }
+    .FolderTitle{
+        font-size: 1.2rem;
+    }
 }

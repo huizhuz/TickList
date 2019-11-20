@@ -23,7 +23,9 @@ export class Folders extends Component {
         newFolderName: "",
         isEditing: false,
         currentFolderId: -1,
+        currentFolderName: "click to choose",
         idOfFolderBeingEditted: -1,
+        folderIsHidden: true
     }
 
     showFolderInput = () => {
@@ -96,7 +98,12 @@ export class Folders extends Component {
     }
 
     updateCurrentFolder = (id) => {
-        this.setState({ currentFolderId: id });
+        var currentFolderIndex = this.state.folders.findIndex(folder => folder.id === id)
+        this.setState({ 
+            currentFolderId: id,
+            currentFolderName: this.state.folders[currentFolderIndex].name,
+            folderIsHidden: !this.state.folderIsHidden 
+        });
     }
 
 
@@ -135,11 +142,16 @@ export class Folders extends Component {
         return (
             <Aux>
                 <div className={styles.FoldersContainer}>
-                    <h1 className={styles.FolderTitle}>Folders</h1>
-                    {folderElements}
-                    <div className={styles.FolderControl}>
-                        {this.state.isEditing ? addFolderInput : plusSign}
+                    <h1 className={styles.FolderTitle}
+                        onClick={() => { this.setState({ folderIsHidden: !this.state.folderIsHidden }) }}>
+                            Folders - {this.state.currentFolderName}</h1>
+                    <div className={this.state.folderIsHidden ? styles.HideFolder : styles.ShowFolder}>
+                        {folderElements}
+                        <div className={styles.FolderControl}>
+                            {this.state.isEditing ? addFolderInput : plusSign}
+                        </div>
                     </div>
+
                 </div>
                 <div className={styles.TasksContainer}>
                     <Tasks ref={this.tasksElement} currentFolderId={this.state.currentFolderId}></Tasks>
